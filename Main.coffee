@@ -34,7 +34,7 @@ listEmoji = (cb) ->
   walker.on "file", (root, stat, next) ->
 
     # Add this file to the list of files
-    if stat.name.endsWith(".png")
+    if stat.name.endsWith(".png") or stat.name.endsWith(".gif")
       files.push path.resolve(root + "/" + stat.name)
 
     next()
