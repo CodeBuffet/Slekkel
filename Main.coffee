@@ -1,6 +1,11 @@
 path = require("path")
 childProcess = require("child_process")
 prompt = require("prompt")
+walk = require("walk")
+path = require("path")
+
+String::endsWith = (suffix) ->
+  @indexOf(suffix, @length - suffix.length) isnt -1
 
 onErr = (err) ->
   console.log err
@@ -18,20 +23,45 @@ properties = [
     hidden: true
   }
 ]
+
+listEmoji = (cb) ->
+  files = []
+
+  # Walker options
+  walker = walk.walk("./emoji_to_upload",
+    followLinks: false
+  )
+  walker.on "file", (root, stat, next) ->
+
+    # Add this file to the list of files
+    if stat.name.endsWith(".png")
+      files.push path.resolve(root + "/" + stat.name)
+
+    next()
+
+  walker.on "end", ->
+    cb(files)
+
 prompt.start()
 prompt.get properties, (err, result) ->
   if err
     console.log err
     return null
 
-  binPath = "./node_modules/casperjs/bin/casperjs"
-  childArgs = [
-    "--engine=slimerjs"
-    path.join(__dirname, "Scrape.coffee"),
-    result.email,
-    result.password
-  ]
-  childProcess.execFile binPath, childArgs, (err, stdout, stderr) ->
-    console.log "Result:\n#{stdout}\nerror: #{err} #{stderr}"
+  listEmoji (files) ->
+
+    binPath = "./node_modules/casperjs/bin/casperjs"
+    childArgs = [
+      "--engine=slimerjs"
+      path.join(__dirname, "Scrape.coffee"),
+      result.email,
+      result.password,
+      files.join("...")
+    ]
+
+    #console.log "Running with args: ", childArgs
+
+    childProcess.execFile binPath, childArgs, (err, stdout, stderr) ->
+      console.log "Result:\n#{stdout}\nerror: #{err} #{stderr}"
 
   return null

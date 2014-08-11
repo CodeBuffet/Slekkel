@@ -5,7 +5,8 @@
   "main": "Main.coffee",
   "dependencies": {
     "prompt": "~0.2.13",
-    "casperjs": "~1.1.0-beta3"
+    "casperjs": "~1.1.0-beta3",
+    "walk": "~2.3.3"
   },
   "devDependencies": {},
   "scripts": {
