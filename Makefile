@@ -1,2 +1,2 @@
 run:
-	./node_modules/slimerjs/bin/slimerjs Main.coffee
+	./node_modules/coffee-script/bin/coffee Main.coffee

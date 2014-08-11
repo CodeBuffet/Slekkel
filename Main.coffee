@@ -1,27 +1,36 @@
-page = require("webpage").create()
-page.viewportSize = { width:1024, height:768 }
+path = require("path")
+childProcess = require("child_process")
+prompt = require("prompt")
 
-onAuth = ->
-  page.evaluate ->
-    #  Load the admin page to later upload emoticons to
-    window.location.href = "/admin/emoji"
+onErr = (err) ->
+  console.log err
+  1
+console.log "Please enter your slack details:"
+properties = [
+  {
+    name: "email"
+    validator: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    warning: "Email is invali"
+  }
+  {
+    message: "Enter your password (will be hidden)"
+    name: "password"
+    hidden: true
+  }
+]
+prompt.start()
+prompt.get properties, (err, result) ->
+  if err
+    console.log err
+    return null
 
-page.open("http://slack.com/signin").then (status) ->
+  binPath = "./node_modules/slimerjs/bin/slimerjs"
+  childArgs = [
+    path.join(__dirname, "Scrape.coffee"),
+    result.email,
+    result.password
+  ]
+  childProcess.execFile binPath, childArgs, (err, stdout, stderr) ->
+    console.log "Result:\n#{stdout}\nerror: #{err} #{stderr}"
 
-  alert "Please sign in with your Slack Account to continue import process"
-
-  (->
-    timer = null
-    checkAuth = ->
-
-      if window.location.href.indexOf("/messages") != -1
-        # Authenticated
-        onAuth()
-        clearInterval timer
-
-      return null
-
-    timer = setInterval checkAuth, 100
-  )()
-
-  return
+  return null
