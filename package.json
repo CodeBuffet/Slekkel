@@ -4,8 +4,8 @@
   "description": "Import a bunch of (meme) emoticons to Slack!",
   "main": "Main.coffee",
   "dependencies": {
-    "slimerjs": "~0.9.1-2",
-    "prompt": "~0.2.13"
+    "prompt": "~0.2.13",
+    "casperjs": "~1.1.0-beta3"
   },
   "devDependencies": {},
   "scripts": {

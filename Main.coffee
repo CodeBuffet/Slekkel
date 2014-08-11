@@ -24,8 +24,9 @@ prompt.get properties, (err, result) ->
     console.log err
     return null
 
-  binPath = "./node_modules/slimerjs/bin/slimerjs"
+  binPath = "./node_modules/casperjs/bin/casperjs"
   childArgs = [
+    "--engine=slimerjs"
     path.join(__dirname, "Scrape.coffee"),
     result.email,
     result.password
