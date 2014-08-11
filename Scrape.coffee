@@ -53,5 +53,4 @@ for file in files
   )(file)
 
 casper.run ->
-
-  #casper.exit()
+  casper.exit()
