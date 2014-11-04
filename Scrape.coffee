@@ -4,7 +4,7 @@ casper = require("casper").create(
 args = casper.cli.args
 #require("utils").dump(casper.cli.args);
 
-email = password = null
+email = password = team = null
 files = []
 
 if args.length < 3
@@ -13,11 +13,12 @@ if args.length < 3
 else
   email = args[0]
   password = args[1]
-  files = args[2].split("...")
+  team = args[2]
+  files = args[3].split("...")
 
-casper.start "http://slack.com/signin", ->
+casper.start "http://#{team}.slack.com/signin", ->
 
-  @fill "form[action=\"/signin\"]",
+  @fill "form[action=\"/\"]",
     email: email
   , true
 

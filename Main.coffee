@@ -15,12 +15,16 @@ properties = [
   {
     name: "email"
     validator: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    warning: "Email is invali"
+    warning: "Email is invalid"
   }
   {
     message: "Enter your password (will be hidden)"
     name: "password"
     hidden: true
+  }
+  {
+    message: "Enter your Slack Team"
+    name: "team"
   }
 ]
 
@@ -56,6 +60,7 @@ prompt.get properties, (err, result) ->
       path.join(__dirname, "Scrape.coffee"),
       result.email,
       result.password,
+      result.team,
       files.join("...")
     ]
 
