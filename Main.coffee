@@ -13,9 +13,14 @@ onErr = (err) ->
 console.log "Please enter your slack details:"
 properties = [
   {
+    message: "Enter your slack domain or company name"
+    name: "domain"
+    hidden: true
+  }
+  {
     name: "email"
     validator: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    warning: "Email is invali"
+    warning: "Email is invalid"
   }
   {
     message: "Enter your password (will be hidden)"
@@ -54,6 +59,7 @@ prompt.get properties, (err, result) ->
     childArgs = [
       "--engine=slimerjs"
       path.join(__dirname, "Scrape.coffee"),
+      result.domain,
       result.email,
       result.password,
       files.join("...")
