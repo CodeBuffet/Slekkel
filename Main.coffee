@@ -15,7 +15,6 @@ properties = [
   {
     message: "Enter your slack domain or company name"
     name: "domain"
-    hidden: true
   }
   {
     name: "email"
