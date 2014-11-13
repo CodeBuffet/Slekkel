@@ -11,22 +11,26 @@ if args.length < 3
   console.log "Try to pass some arguments when invoking this script!"
   casper.exit()
 else
-  email = args[0]
-  password = args[1]
-  files = args[2].split("...")
+  domain = args[0]
+  email = args[1]
+  password = args[2]
+  files = args[3].split("...")
 
 casper.start "http://slack.com/signin", ->
 
   @fill "form[action=\"/signin\"]",
-    email: email
+    domain: domain
   , true
 
   return
 
 casper.then ->
-  @fill "form[action=\"/\"]",
+  @fill "form[id=\"signin_form\"]",
+    email: email
     password: password
   , true
+
+  return
 
 casper.then ->
   @evaluate ->
