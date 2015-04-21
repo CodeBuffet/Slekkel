@@ -16,7 +16,7 @@ else
   password = args[2]
   files = args[3].split("...")
 
-casper.start "http://slack.com/signin", ->
+casper.start "https://slack.com/signin", ->
 
   @fill "form[action=\"/signin\"]",
     domain: domain
