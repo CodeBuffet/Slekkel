@@ -56,7 +56,8 @@ prompt.get properties, (err, result) ->
 
     binPath = "./node_modules/casperjs/bin/casperjs"
     childArgs = [
-      "--engine=slimerjs"
+      "--ssl-protocol=any"
+      "--engine=slimerjs",
       path.join(__dirname, "Scrape.coffee"),
       result.domain,
       result.email,
