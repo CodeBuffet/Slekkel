@@ -25,6 +25,11 @@ casper.start "https://slack.com/signin", ->
   return
 
 casper.then ->
+  @evaluate ->
+    #  Submit the form (Google account not supported)
+    document.getElementsByTagName("form")[0].submit()
+
+casper.then ->
   @fill "form[id=\"signin_form\"]",
     email: email
     password: password
