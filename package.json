@@ -6,6 +6,7 @@
   "dependencies": {
     "prompt": "~0.2.13",
     "casperjs": "~1.1.0-beta3",
+    "coffee-script": "~1.10.0",
     "walk": "~2.3.3"
   },
   "devDependencies": {},
